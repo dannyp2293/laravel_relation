@@ -74,13 +74,25 @@ return $data;
 
 Route::get('/update_profile', function(){
     $user = User::find(2);
+
+//     $data->profile()->update([
+//         'phone' => '0145',
+//     'address' =>'jl, Baru update lgi nih'
+//     ]);
+
+//         return $user;
+// }); 
+
+//Atau pkae metode dibawah ini 
+
     $data=[
-    'phone' => '0145',
-    'address' =>'jl, Baru update'
+    'phone' => '01234',
+    'address' =>'jl, Baru update lagi'
 ];
     $user->profile()->update($data);
     return $user;
-});
+    }); 
+
 
 Route::get('/delete_profile', function (){
 $user = User::find(2);
