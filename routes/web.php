@@ -82,7 +82,6 @@ Route::get('/update_profile', function(){
 
 //         return $user;
 // }); 
-
 //Atau pkae metode dibawah ini 
 
     $data=[
