@@ -11,8 +11,8 @@ Route::get('/', function () {
 
 Route::get('/create_user', function () {
     $user = User::create([
-        'name' => 'Eva',
-        'email' => 'Eva@gmail.com',
+        'name' => 'Bekam',
+        'email' => 'bekam@gmail.com',
         'password' => bcrypt('password')
 
     ]);
@@ -20,46 +20,46 @@ Route::get('/create_user', function () {
 });
 
 Route::get('/create_profile', function () {
-    $profile = Profile::create([
-        'user_id' => 1,
-        'phone' => '0344646',
-        'address' => 'Jl. Baru, No.3'
-    ]);
-    return $profile;
-});
-//     $user = User::find(2);
-//     $user->profile()->create([
-//        'phone' => '083136',
-//        'address' => 'jl. Baru milik Cyntia' 
+//     $profile = Profile::create([
+//         'user_id' => 2,
+//         'phone' => '0344646',
+//         'address' => 'Jl. Baru, No.3'
 //     ]);
-//     return $user;
+//     return $profile;
 // });
+    $user = User::find(1);
+    $user->profile()->create([
+       'phone' => '083136',
+       'address' => 'jl. Baru milik Cyntia' 
+    ]);
+    return $user;
+});
 
 Route::get('/create_user_profile', function () {
     $user = User::find(2);
 
     $profile = new Profile([
-        'phone' => '0161611561',
-        'address' => 'Jl. Raya, No.123'
+        'phone' => '12345',
+        'address' => 'Jl. baru diaspal, No.123'
     ]);
     $user->profile()->save($profile);
     return $user;
 });
  
 Route::get('/read_user', function(){
- $user = User::find(2);
+ $user = User::find(1);
 
-//  return $user->profile->phone;
-$data=[
-    'name' => $user->name,
-    'phone' => $user->profile->phone,
-    'address' => $user->profile->address
-]; 
-return $data;
+ return $user->profile->phone;
+// $data=[
+//     'name' => $user->name,
+//     'phone' => $user->profile->phone,
+//     'address' => $user->profile->address
+// ]; 
+// return $data;
 });
 
 Route::get('/read_profile', function(){
-    $profile = Profile::where('phone', '0344646')->first();
+    $profile = Profile::where('phone', '12345')->first();
 //  return $profile->user->name;
 $data=[
     'name' => $profile->user->name,
@@ -76,14 +76,14 @@ Route::get('/update_profile', function(){
     $user = User::find(2);
     $data=[
     'phone' => '0145',
-    'address' =>'jl, Baru update'
+    'address' =>'jl, Baru Cor'
 ];
     $user->profile()->update($data);
     return $user;
 });
 
 Route::get('/delete_profile', function (){
-$user = User::find(2);
+$user = User::find(1);
 $user->profile()->delete();
 return $user;
 });
