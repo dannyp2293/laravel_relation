@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -45,8 +46,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function profile()
+
+    /**
+     * One-to-One relationship with Profile.
+     */
+    public function profile(): HasOne
     {
-        return $this->HasOne(Profile::class);
+        return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * One-to-Many relationship with Post.
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
     }
 }

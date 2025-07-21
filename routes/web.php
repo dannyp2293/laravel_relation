@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Post;
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,8 +12,8 @@ Route::get('/', function () {
 
 Route::get('/create_user', function () {
     $user = User::create([
-        'name' => 'Bekam',
-        'email' => 'bekam@gmail.com',
+        'name' => 'Cinta',
+        'email' => 'eva@gmail.com',
         'password' => bcrypt('password')
 
     ]);
@@ -27,10 +28,10 @@ Route::get('/create_profile', function () {
 //     ]);
 //     return $profile;
 // });
-    $user = User::find(1);
+    $user = User::find(3);
     $user->profile()->create([
        'phone' => '083136',
-       'address' => 'jl. Baru milik Cyntia' 
+       'address' => 'jl. Baru milik EVA' 
     ]);
     return $user;
 });
@@ -73,10 +74,10 @@ return $data;
  
 
 Route::get('/update_profile', function(){
-    $user = User::find(2);
+    $user = User::find(3);
     $data=[
     'phone' => '0145',
-    'address' =>'jl, Baru Cor'
+    'address' =>'jl, Baru Cor coran'
 ];
     $user->profile()->update($data);
     return $user;
@@ -87,3 +88,30 @@ $user = User::find(1);
 $user->profile()->delete();
 return $user;
 });
+
+Route::get('/create_post', function(){
+    // $user = User::create([
+    //     'name' => 'danny',
+    //     'email' => 'danny@mail.com',
+    //     'password' => bcrypt('password')
+    // ]);
+    $user = User::findOrFail(1);
+    $user->posts()->create([
+        'title' => 'Isi title Post',
+        'body' => 'Hello world in isi dari body table post baru'
+    ]);
+    return 'Succes';
+});
+
+Route::get('/deletepost', function(){
+    // $post = Post::find(4);
+    // $post -> delete();
+// ada 2 opsi hapus dengan metode find atau metode destroy
+    User::destroy(6); // menghapus post dengan id = 1
+
+    // $post = Post::where('user_id', 3);
+    // $post ->delete();
+
+
+});
+
