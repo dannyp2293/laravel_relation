@@ -21,20 +21,20 @@ Route::get('/create_user', function () {
 });
 
 Route::get('/create_profile', function () {
-//     $profile = Profile::create([
-//         'user_id' => 2,
-//         'phone' => '0344646',
-//         'address' => 'Jl. Baru, No.3'
-//     ]);
-//     return $profile;
-// });
-    $user = User::find(3);
-    $user->profile()->create([
-       'phone' => '083136',
-       'address' => 'jl. Baru milik EVA' 
+    $profile = Profile::create([
+        'user_id' => 1,
+        'phone' => '0344646',
+        'address' => 'Jl. Baru, No.3'
     ]);
-    return $user;
+    return $profile;
 });
+    // $user = User::find(3);
+    // $user->profile()->create([
+    //    'phone' => '083136',
+    //    'address' => 'jl. Baru milik EVA' 
+    // ]);
+    // return $user;
+// });
 
 Route::get('/create_user_profile', function () {
     $user = User::find(2);
@@ -97,7 +97,7 @@ Route::get('/create_post', function(){
     // ]);
     $user = User::findOrFail(1);
     $user->posts()->create([
-        'title' => 'Isi title Post',
+        'title' => 'Isi title Post Baru ',
         'body' => 'Hello world in isi dari body table post baru'
     ]);
     return 'Succes';
@@ -113,5 +113,48 @@ Route::get('/deletepost', function(){
     // $post ->delete();
 
 
+});
+
+Route::get('/read_post', function(){
+    $user = User::find(1);
+
+    // dd($user->posts()->get());
+    $posts = $user->posts()->get();
+   
+
+    foreach($posts as $post){
+        $data[] = [
+            'name'=> $post->user->name,
+            'post_id' =>$post->id,
+            'title'=> $post->title,
+            'body'=>$post->body
+        ];
+    }
+    //   $post = $user->posts()->first();
+//    $data= [
+//             'name'=> $post->user->name,
+//             'title'=> $post->title,
+//             'body'=>$post->body
+//         ];
+
+    return $data;
+}); 
+
+Route::get('/upate_post', function(){
+    $user = User::findOrFail(1);
+
+    $user->posts()->where('id', 2)->update([
+        'title' => 'ini update 2 baru',
+        'body' => 'Ini isian post yang sudah diupdate'
+    ]);
+    return 'Success';
+});
+
+Route::get('/delete_post', function(){
+$user = User::find(1);
+
+// $user->posts()->whereId(1)->delete();
+$user->posts()->where('id',2)->delete();
+return 'Succes';
 });
 
