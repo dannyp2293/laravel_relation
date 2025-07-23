@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Post;
+use App\Models\Category;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('welcome');
@@ -90,12 +92,12 @@ return $user;
 });
 
 Route::get('/create_post', function(){
-    // $user = User::create([
-    //     'name' => 'danny',
-    //     'email' => 'danny@mail.com',
-    //     'password' => bcrypt('password')
-    // ]);
-    $user = User::findOrFail(1);
+    $user = User::create([
+        'name' => 'danny',
+        'email' => 'danny@mail.com',
+        'password' => bcrypt('password')
+    ]);
+    // $user = User::findOrFail(1);
     $user->posts()->create([
         'title' => 'Isi title Post Baru ',
         'body' => 'Hello world in isi dari body table post baru'
@@ -155,6 +157,29 @@ $user = User::find(1);
 
 // $user->posts()->whereId(1)->delete();
 $user->posts()->where('id',2)->delete();
-return 'Succes';
+return 'Success';
 });
+
+Route::get('/create_categories', function(){
+    // $post = Post::findOrFail(1);
+
+    // $post->categories()->create([
+    //     'slug' => str::slug('PHP', '-'),
+    //     'category' =>'Belajar PHP'
+    // ]);
+    // return 'Succes';
+    $user = User::create([
+        'name' => 'Eva',
+        'email' => 'Eva@mail.com',
+        'password' => bcrypt('password')
+
+    ]);
+    $user->posts()->create([
+        'title' => 'New Title',
+        'body' => 'New Body Content'])->categories ()->create([ 'slug' =>str::slug('New Category', '-'), 'category' => 'New Category' ]);
+
+return 'sucess';
+});
+ 
+
 
