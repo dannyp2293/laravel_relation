@@ -92,15 +92,15 @@ return $user;
 });
 
 Route::get('/create_post', function(){
-    $user = User::create([
-        'name' => 'danny',
-        'email' => 'danny@mail.com',
-        'password' => bcrypt('password')
-    ]);
-    // $user = User::findOrFail(1);
+    // $user = User::create([
+    //     'name' => 'danny',
+    //     'email' => 'danny@mail.com',
+    //     'password' => bcrypt('password')
+    // ]);
+    $user = User::findOrFail(2);
     $user->posts()->create([
-        'title' => 'Isi title Post Baru ',
-        'body' => 'Hello world in isi dari body table post baru'
+        'title' => 'Isi title Post Baru Milik Member 1',
+        'body' => 'Hello world in isi dari body table post baru milik Member 1'
     ]);
     return 'Succes';
 });
@@ -167,7 +167,7 @@ Route::get('/create_categories', function(){
     //     'slug' => str::slug('PHP', '-'),
     //     'category' =>'Belajar PHP'
     // ]);
-    // return 'Succes';
+    // return 'Succes'; 
     $user = User::create([
         'name' => 'Eva',
         'email' => 'Eva@mail.com',
@@ -180,6 +180,41 @@ Route::get('/create_categories', function(){
 
 return 'sucess';
 });
+
+Route::get('/read_category', function(){
+$post = Post::find(2);
+// dd($post->categories());
+$categories = $post->categories;
+foreach ($categories as $category){
+    echo $category->slug . '</br>';
+}
+// $category = Category::find(3);
+
+// $posts = $category->posts;
+
+// foreach($posts as $post){
+//     echo $post->title . '</br>';
+
+// }
+});
+
+route::get('/attach', function(){
+    $post = Post::find(3);
+    // $post->categories()->attach(1);
+    $post->categories()->attach([1,2,3]);
+return 'SUcces';
+});
  
+Route::get('/detach', function(){
+    $post = Post::find(3);
+    $post->categories()->detach();
+    return 'success'; 
+});
 
+Route::get('/sync', function(){
+$post = Post::find(3);
+$post->categories()->sync([1,3]);
+return 'Succes';
+});
 
+ 
