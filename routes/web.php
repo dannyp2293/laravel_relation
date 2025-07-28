@@ -6,6 +6,7 @@ use App\Models\Profile;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use App\Models\Role;
 
 Route::get('/', function () {
     return view('welcome');
@@ -217,4 +218,9 @@ $post->categories()->sync([1,3]);
 return 'Succes';
 });
 
+Route::get('/role/posts', function(){
+    $role = Role::find(1);
+    return $role->posts()->get(); // atau: $role->posts;
+
+});
  
