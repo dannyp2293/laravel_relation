@@ -1,9 +1,13 @@
 <?php
 
 namespace Database\Seeders;
+use Illuminate\Support\Facades\DB;
+
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
 
 class DummiesTableSeeder extends Seeder
 {
@@ -20,8 +24,8 @@ class DummiesTableSeeder extends Seeder
         DB::table('roles')->insert($roles);
  
         $users = [
-            ['name' => 'Admin', 'email' => 'admin@mail.com', 'password' => bcrypt('password'), 'role_id' => 1],
-            ['name' => 'Member', 'email' => 'member@mail.com', 'password' => bcrypt('password'), 'role_id' => 2],
+            ['name' => 'Admin', 'email' => 'admin@mail.com', 'password' => Hash::make('password'), 'role_id' => 1],
+            ['name' => 'Member', 'email' => 'member@mail.com', 'password' => Hash::make('password'), 'role_id' => 2],
         ];
  
         DB::table('users')->insert($users);

@@ -19,7 +19,7 @@ class Post extends Model
           }
            public function comments()
     {
-        return $this->morphMany(comments::class, 'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
     }
     }
    

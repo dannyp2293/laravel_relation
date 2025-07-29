@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Models\Role;
+use App\Models\Comment;
+use App\Models\Portfolio;
 
 Route::get('/', function () {
     return view('welcome');
@@ -222,5 +224,17 @@ Route::get('/role/posts', function(){
     $role = Role::find(1);
     return $role->posts()->get(); // atau: $role->posts;
 
+});
+
+Route::get('/comment/create', Function (){
+    // $post = Post::find(1);
+    // $post->Comments()->create([
+    //     'user_id' => 2, 'content' => 'Balasan dari respond user 1'
+    // ]);
+     $portfolio = Portfolio::find(1);
+     $portfolio->comments()->create([
+        'user_id' => 2, 'content' => 'Balasan dari portfolio respond user 1'
+    ]);
+    return 'SUcces';
 });
  
