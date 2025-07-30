@@ -233,8 +233,15 @@ Route::get('/comment/create', Function (){
     // ]);
      $portfolio = Portfolio::find(1);
      $portfolio->comments()->create([
-        'user_id' => 2, 'content' => 'Balasan dari portfolio respond user 1'
+        'user_id' => 2, 'content' => 'Silakan, Saya juga mau jawab di POst ID 1'
     ]);
     return 'SUcces';
+});
+Route::get('/comment/read',function(){
+$post = Post::findOrFail(1);
+$comments = $post->comments;
+foreach($comments as $comment){
+    echo $comment->user->name. ' - ' .$comment->content .' ('. $comment->commentable->title .')';
+}
 });
  
