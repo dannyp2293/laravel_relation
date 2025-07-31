@@ -238,10 +238,38 @@ Route::get('/comment/create', Function (){
     return 'SUcces';
 });
 Route::get('/comment/read',function(){
-$post = Post::findOrFail(1);
-$comments = $post->comments;
+$portfolio = Portfolio::findOrFail(1);
+$comments = $portfolio->comments;
 foreach($comments as $comment){
-    echo $comment->user->name. ' - ' .$comment->content .' ('. $comment->commentable->title .')';
+    echo $comment->user->name. ' - ' .$comment->content .' ('. $comment->commentable->title .') <br>';
 }
 });
+
+Route::get('/comment/update', function(){
+    // $post = Post::find(1);
+    // $comment = $post->comments()->where('id', 1)->first();
+    // $comment->update(['content' => 'Komentarnya telah disunting']);
+      $portfolio = Portfolio::find(1);
+
+    $comment = $portfolio->comments()->where('id', 3)->first();
+    $comment->update(['content' => 'Komentarnya telah disunting di bagian portfolio']);
+    
+    return 'Succes';
+
+});
+
+Route::get('/comment/delete', function(){
+    // $post = Post::find(1);
+
+    // $post->comments()->where('id', 1)->delete();
+
+    // return 'Succes';
+    $portfolio = Portfolio::find(1);
+
+    $portfolio->comments()->where('id', 4)->delete();
+
+    return 'Succes';
+});
+
+
  
