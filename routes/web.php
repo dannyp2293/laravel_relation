@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Models\Role;
 use App\Models\Comment;
 use App\Models\Portfolio;
+use App\Models\Tag;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,7 +37,7 @@ Route::get('/create_profile', function () {
     // $user = User::find(3);
     // $user->profile()->create([
     //    'phone' => '083136',
-    //    'address' => 'jl. Baru milik EVA' 
+    //    'address' => 'jl. Baru milik EVA'
     // ]);
     // return $user;
 // });
@@ -51,7 +52,7 @@ Route::get('/create_user_profile', function () {
     $user->profile()->save($profile);
     return $user;
 });
- 
+
 Route::get('/read_user', function(){
  $user = User::find(1);
 
@@ -60,7 +61,7 @@ Route::get('/read_user', function(){
 //     'name' => $user->name,
 //     'phone' => $user->profile->phone,
 //     'address' => $user->profile->address
-// ]; 
+// ];
 // return $data;
 });
 
@@ -76,7 +77,7 @@ $data=[
 return $data;
 
 });
- 
+
 
 Route::get('/update_profile', function(){
     $user = User::find(3);
@@ -125,7 +126,7 @@ Route::get('/read_post', function(){
 
     // dd($user->posts()->get());
     $posts = $user->posts()->get();
-   
+
 
     foreach($posts as $post){
         $data[] = [
@@ -143,7 +144,7 @@ Route::get('/read_post', function(){
 //         ];
 
     return $data;
-}); 
+});
 
 Route::get('/upate_post', function(){
     $user = User::findOrFail(1);
@@ -170,7 +171,7 @@ Route::get('/create_categories', function(){
     //     'slug' => str::slug('PHP', '-'),
     //     'category' =>'Belajar PHP'
     // ]);
-    // return 'Succes'; 
+    // return 'Succes';
     $user = User::create([
         'name' => 'Eva',
         'email' => 'Eva@mail.com',
@@ -207,11 +208,11 @@ route::get('/attach', function(){
     $post->categories()->attach([1,2,3]);
 return 'SUcces';
 });
- 
+
 Route::get('/detach', function(){
     $post = Post::find(3);
     $post->categories()->detach();
-    return 'success'; 
+    return 'success';
 });
 
 Route::get('/sync', function(){
@@ -253,7 +254,7 @@ Route::get('/comment/update', function(){
 
     $comment = $portfolio->comments()->where('id', 3)->first();
     $comment->update(['content' => 'Komentarnya telah disunting di bagian portfolio']);
-    
+
     return 'Succes';
 
 });
@@ -271,5 +272,13 @@ Route::get('/comment/delete', function(){
     return 'Succes';
 });
 
+Route::get('/tag/read', function(){
+$post = Post::find(1);
+// return $post->tags;
 
- 
+foreach($post->tags as $tag){
+    echo $tag->name . '<br>';
+}
+});
+
+
