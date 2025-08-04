@@ -241,7 +241,8 @@ Route::get('/comment/create', Function (){
 Route::get('/comment/read',function(){
 $portfolio = Portfolio::findOrFail(1);
 $comments = $portfolio->comments;
-foreach($comments as $comment){
+foreach($comments as $comment)
+    {
     echo $comment->user->name. ' - ' .$comment->content .' ('. $comment->commentable->title .') <br>';
 }
 });
@@ -273,12 +274,46 @@ Route::get('/comment/delete', function(){
 });
 
 Route::get('/tag/read', function(){
-$post = Post::find(1);
+// $post = Post::find(1);
 // return $post->tags;
 
-foreach($post->tags as $tag){
+// foreach($post->tags as $tag){
+//     echo $tag->name . '<br>';
+
+$portfolio = Portfolio::find(1);
+
+foreach($portfolio->tags as $tag){
     echo $tag->name . '<br>';
 }
+
 });
+
+Route::get('/tag/attach', function(){
+    $post = Post::find(1);
+    $post->tags()->attach([5,7,8]);
+
+    // $portfolio = Portfolio::find(1);
+    // $portfolio->tags()->attach([4,6]);
+
+
+    return 'Succes';
+
+});
+
+Route::get('/tag/detach', function(){
+// $post = Post::find(1);
+// $post->tags()->detach([2,4]);
+
+$portfolio = Portfolio::find(1);
+$portfolio->tags()->detach([2,4]);
+
+return 'Succes';
+});
+
+Route::get('/tag/sycn', function(){
+$post = Post::find(1);
+$post->tags()->sync(6);
+});
+
 
 
